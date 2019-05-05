@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
 import { Grid } from '@alifd/next';
 
+import { getContent } from '../../../../api/api'
+
 const { Row, Col } = Grid;
 
 /**
@@ -35,48 +37,31 @@ export default class BasicDetailInfo extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    console.log(this.props)
+
+    this.state = { text: ''};
+
+    getContent(this.props.id).then( res => {
+      this.setState({
+        text: res.data.data.text
+      })
+    })
   }
 
   render() {
     return (
       <IceContainer>
-        <h2 style={styles.basicDetailTitle}>基础详情页</h2>
+        <h2 style={styles.basicDetailTitle}>{this.props.title}</h2>
 
         <div style={styles.infoColumn}>
-          <h5 style={styles.infoColumnTitle}>基本信息</h5>
+          <h5 style={styles.infoColumnTitle}>基本内容</h5>
           <Row wrap style={styles.infoItems}>
-            <Col xxs="24" l="12" style={styles.infoItem}>
-              <span style={styles.infoItemLabel}>任务标题：</span>
-              <span style={styles.infoItemValue}>{dataSource.title}</span>
-            </Col>
-            <Col xxs="24" l="12" style={styles.infoItem}>
-              <span style={styles.infoItemLabel}>店铺名称：</span>
-              <span style={styles.infoItemValue}>{dataSource.shopName}</span>
-            </Col>
-            <Col xxs="24" l="12" style={styles.infoItem}>
-              <span style={styles.infoItemLabel}>任务金额：</span>
-              <span style={styles.infoItemValue}>¥ {dataSource.amount}</span>
-            </Col>
-            <Col xxs="24" l="12" style={styles.infoItem}>
-              <span style={styles.infoItemLabel}>任务赏金：</span>
-              <span style={styles.infoItemValue}>¥ {dataSource.bounty}</span>
-            </Col>
-            <Col xxs="24" l="12" style={styles.infoItem}>
-              <span style={styles.infoItemLabel}>接单时间：</span>
-              <span style={styles.infoItemValue}>{dataSource.orderTime}</span>
-            </Col>
-            <Col xxs="24" l="12" style={styles.infoItem}>
-              <span style={styles.infoItemLabel}>交付时间：</span>
-              <span style={styles.infoItemValue}>
-                {dataSource.deliveryTime}
-              </span>
-            </Col>
+            <p>{this.state.text}</p>
           </Row>
         </div>
         <div style={styles.infoColumn}>
-          <h5 style={styles.infoColumnTitle}>更多信息</h5>
-          <Row wrap style={styles.infoItems}>
+          <h5 style={styles.infoColumnTitle}>更多内容</h5>
+{/*          
             <Col xxs="24" l="12" style={styles.infoItem}>
               <span style={styles.infoItemLabel}>联系方式：</span>
               <span style={styles.infoItemValue}>{dataSource.phone}</span>
@@ -110,7 +95,7 @@ export default class BasicDetailInfo extends Component {
                   })}
               </span>
             </Col>
-          </Row>
+          </Row> */}
         </div>
       </IceContainer>
     );

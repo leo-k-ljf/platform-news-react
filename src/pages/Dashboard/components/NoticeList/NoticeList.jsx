@@ -1,18 +1,14 @@
 import Container from '@icedesign/container';
 import React, { Component } from 'react';
 import fecha from 'fecha';
+import { withRouter, Link } from 'react-router-dom';
 
 import { Pagination } from '@alifd/next';
 import { getNews ,getCount} from '../../../../api/api';
 
 
-const mokeDataTitle = [
-  '【内容分类】获得更多曝光量！',
-  '【活动入口已开启】2018造物节-达人图文内容招稿说明',
-  '【微淘达人训练营第3期】L1&L2等级达人看过来，福利继续喽！',
-  '【爆文创作挑战开启】6月爆文红榜美妆篇 ，五步掌握爆款技巧',
-];
 
+@withRouter
 class NoticeList extends Component {
   constructor(props) {
     super(props);
@@ -40,6 +36,16 @@ class NoticeList extends Component {
     })
   };
 
+  handleJump = (id,name) => {
+    this.props.history.push({
+      pathname: '/detail',
+      query: {
+        "id": id,
+        "title": name
+      }
+    })
+  } 
+
   render() {
     return (
       <Container>
@@ -52,7 +58,8 @@ class NoticeList extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
                 title={notice.name}
-                href='#'
+                href='javascript:void(0)'
+                onClick={() => this.handleJump(notice.id,notice.name)}
                 style={styles.noticeItem}
               >
                 <div>

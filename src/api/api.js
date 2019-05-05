@@ -66,21 +66,27 @@ export function getCount(){
     })
   }
 
-//
+//新闻内容
+export function getContent(id){
+  return request({
+    url: '/api/news/content/' + id,
+    method: 'get' 
+  })
+}
   
   //评论列表
   export function getCommentList(params){
     return request({
       url: '/api/news/comment/list',
       method: 'get',
-      data: params
+      params
     })
   }
   
   // 提交评论
   export function postComment(params){
     return request({
-      url: '/api/news/comment/',
+      url: '/api/news/comment',
       method: 'post',
       data: params
     })

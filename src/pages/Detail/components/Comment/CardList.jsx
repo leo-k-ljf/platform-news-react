@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Icon, Grid } from '@alifd/next';
 import Filter from './Filter';
 
+import { getCommentList} from '../../../../api/api'
+
 const { Row, Col } = Grid;
 
 const getData = () => {
@@ -25,35 +27,48 @@ export default class CardList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    
+    this.state = {
+      list: []
+    };
+
+    let params = {
+      newsId: this.props.id,
+      page: 1,
+      limit: 8
+    }
+
+    getCommentList(params).then(res => {
+      console.log( res.data.data.length) 
+      this.setState({
+        list: res.data.data,
+        count: res.data.data.lentgh
+      })
+    })
+  
   }
 
+
+
   render() {
-    const data = getData();
     return (
       <div style={styles.container}>
-        <Filter />
+        {/* <Filter /> */}
         <Row wrap gutter="20">
-          <Col l="6" xs="12" xxs="24">
-            <div style={{ ...styles.card, ...styles.createScheme }}>
-              <Icon type="add" size="large" style={styles.addIcon} />
-              <span>新增测试方案</span>
-            </div>
-          </Col>
-          {data.map((item, index) => {
+          
+          {this.state.list.map((item, index) => {
             return (
               <Col l="6" xs="12" xxs="24" key={index}>
                 <div style={styles.card}>
                   <div style={styles.head}>
-                    <h4 style={styles.title}>{item.title}</h4>
-                    <p style={styles.desc}>{item.desc}</p>
+                    <h4 style={styles.title}>{item.pubName}</h4>
+                    <p style={styles.desc}>{item.createTime}</p>
                   </div>
                   <div style={styles.body}>
                     <p style={{ ...styles.creator, ...styles.info }}>
-                      创建人：
-                      {item.creator}
+                      {item.text}
                     </p>
-                    <p style={{ ...styles.leader, ...styles.info }}>
+                    {/* <p style={{ ...styles.leader, ...styles.info }}>
                       技术负责人：
                       {item.leader}
                     </p>
@@ -61,7 +76,7 @@ export default class CardList extends Component {
                       创建时间：
                       {item.time}
                       <Icon type="edit" style={styles.editIcon} />;
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </Col>

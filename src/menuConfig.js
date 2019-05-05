@@ -44,12 +44,7 @@ const asideMenuConfig = [
         path: '/account/settings',
       },
     ],
-  },
-  {
-    name: 'detail',
-    path: '/detail',
-    icon: 'home',
-  },
+  }
 ];
 
 export { headerMenuConfig, asideMenuConfig };
