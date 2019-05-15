@@ -33,7 +33,7 @@ class UserLanding extends Component {
 
     if (!localStorage.getItem("infoId")) {
       if (localStorage.getItem("username")) {
-        getUser(localStorage.getInfo("username"))
+        getUser(localStorage.getItem("username"))
       } else {
         localStorage.setItem("infoId", 3)
       }

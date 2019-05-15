@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
-import { Input, Grid, Form, Button, Select, SplitButton } from '@alifd/next';
-import {  postComment } from '../../../../api/api'
+import { Input, Grid, Form, Message, Button, Select, SplitButton } from '@alifd/next';
+import { postComment } from '../../../../api/api'
 
 import RichEditor from './RichEditor';
 
@@ -11,7 +11,7 @@ const FormItem = Form.Item;
 export default class ContentEditor extends Component {
   static displayName = 'ContentEditor';
 
-  constructor(props){
+  constructor(props) {
     super(props)
     console.log(this.props)
   }
@@ -27,9 +27,13 @@ export default class ContentEditor extends Component {
       pubName: localStorage.getItem("username"),
       newsId: this.props.id
     }
-    postComment(params).then( res => {
-      console.log(res.data)
-    })
+    postComment(params).then(res => {
+      console.log(res)
+
+    }
+      , error => {
+        console.log(error)
+      })
 
     // ajax values
   };
@@ -39,7 +43,7 @@ export default class ContentEditor extends Component {
       <div className="content-editor">
         <IceContainer title="发布评论">
           <Form labelAlign="top" style={styles.form} >
-           
+
             <FormItem label="">
               <Input.TextArea name="text" placeholder="这里填写评论" />
             </FormItem>

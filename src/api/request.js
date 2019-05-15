@@ -1,5 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
+import { Message } from '@alifd/next';
 
 const instance = axios.create({})
 
@@ -22,6 +23,10 @@ instance.interceptors.request.use(config => {
 instance.interceptors.response.use(response => {
   return response
 }, error => {
+  if(error.response.status == 401){
+    Message.error("请先登录！")
+
+  }
   console.log(error.response)
   return Promise.reject(error);
 });

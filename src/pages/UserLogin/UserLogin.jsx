@@ -22,6 +22,7 @@ class UserLogin extends Component {
 
   constructor(props) {
     super(props);
+    localStorage.clear();
     this.state = {
       value: {
         username: '',
@@ -54,7 +55,7 @@ class UserLogin extends Component {
       console.log(params);
       console.log(values);
 
-      localStorage.clear( )
+      localStorage.clear()
       getLogin(params).then((res) => {
         if (res.status == 200) {
           let access_token = res.data.access_token

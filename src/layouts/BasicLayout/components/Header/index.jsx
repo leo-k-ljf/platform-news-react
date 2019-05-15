@@ -6,9 +6,18 @@ import IceImg from '@icedesign/img';
 import { headerMenuConfig } from '../../../../menuConfig';
 import Logo from '../Logo';
 import './index.scss';
+import { getInfo } from '../../../../api/api';
 const { SubNav, Item } = Nav;
 @withRouter
 export default class Header extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {name:localStorage.getItem('username')};
+    
+
+  }
+
   render() {
     const { location = {} } = this.props;
     const { pathname } = location;
@@ -126,10 +135,10 @@ export default class Header extends Component {
                     className="user-name"
                     style={{ fontSize: '13px', color: '#666' }}
                   >
-                    淘小宝
+                    {this.state.name}
                   </span>
                   <br />
-                  <span className="user-department">技术部</span>
+                  {/* <span className="user-department">技术部</span> */}
                 </div>
                 <Icon
                   type="arrow-down-filling"
@@ -157,7 +166,7 @@ export default class Header extends Component {
               <li className="user-profile-menu-item">
                 <Link to="/user/login">
                   <FoundationSymbol type="compass" size="small" />
-                  退出
+                  退出/登录
                 </Link>
               </li>
             </ul>
